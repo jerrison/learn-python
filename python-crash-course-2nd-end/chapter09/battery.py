@@ -24,8 +24,8 @@ class Battery(object):
         Print a statement about the range this battery provides.
         """
         if self.battery_size == 75:
-            self.range = 260
+            range = 260
         elif self.battery_size == 100:
-            self.range = 315
+            range = 315
 
         print(f"This car can go about {range} miles on a full charge.")
