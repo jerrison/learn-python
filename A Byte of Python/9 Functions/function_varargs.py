@@ -5,12 +5,14 @@ Created on Tue Mar 22 11:41:00 2016
 @author: Jerrison Li
 """
 
-def total(initial = 5, *numbers, **keywords):
+
+def total(initial=5, *numbers, **keywords):
     count = initial
     for number in numbers:
         count += number
-    for key in keywords:
-        count += keywords[key]
+    for value in keywords.values():
+        count += value
     return count
-    
-print(total(10, 1, 2, 3, vegetables = 50, fruits = 100))
+
+
+print(total(10, 1, 2, 3, vegetables=50, fruits=100))
