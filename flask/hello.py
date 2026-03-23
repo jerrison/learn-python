@@ -1,4 +1,5 @@
-from flask import Flask
+import re
+from flask import Flask, abort
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -15,18 +16,21 @@ def hello():
 
 
 @app.route("/user/<username>")
-def show_user_profile(username):
+def show_user_profile(username: str):
     # show the user profile for that user
     return " User %s" % escape(username)
 
 
 @app.route("/post/<int:post_id>")
-def show_post(post_id):
+def show_post(post_id: int):
     # show the post with the given id, the id is an integer
     return "Post %d" % post_id
 
 
 @app.route("/path/<path:subpath>")
-def show_subpath(subpath):
+def show_subpath(subpath: str):
     # show the subpath after /path
+    # Validate the subpath format to ensure it only contains safe characters.
+    if not re.match(r"^[a-zA-Z0-9./_-]+$", subpath):
+        abort(400)
     return "Subpath %s" % escape(subpath)
