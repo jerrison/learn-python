@@ -4,6 +4,9 @@ from markupsafe import escape
 
 app = Flask(__name__)
 
+# Pre-compile the regex to improve performance in the route handler.
+SUBPATH_RE = re.compile(r"^[a-zA-Z0-9./_-]+$")
+
 
 @app.route("/")
 def index():
@@ -31,6 +34,6 @@ def show_post(post_id: int):
 def show_subpath(subpath: str):
     # show the subpath after /path
     # Validate the subpath format to ensure it only contains safe characters.
-    if not re.match(r"^[a-zA-Z0-9./_-]+$", subpath):
+    if not SUBPATH_RE.match(subpath):
         abort(400)
     return "Subpath %s" % escape(subpath)
