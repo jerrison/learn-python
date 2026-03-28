@@ -3,5 +3,3 @@ print(
         __file__, __name__, str(__package__)
     )
 )
-
-import chapter11.package.demo
